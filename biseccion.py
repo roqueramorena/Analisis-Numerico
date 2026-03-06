@@ -2,14 +2,16 @@ def f(x):
     return x**2 + 3*x - 6
 
 def biseccion(a,b,err,max_i):
+    # Casos base
+    if f(a)*f(b)>0:
+        return None
     x = (a+b)/2
-    # Caso base
-    if -err < f(x) < err or max_i<0: 
+    if abs(f(x)) < err or max_i<=0: 
         return x
     # Opciones
-    if f(x) > 0:
+    if f(x) * f(a) < 0:
         x = biseccion(a,x,err,max_i-1)
-    elif f(x) < 0:
+    else:
         x = biseccion(x,b,err,max_i-1)
     return x
 
