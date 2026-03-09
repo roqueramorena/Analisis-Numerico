@@ -15,16 +15,16 @@ def main():
     choice = st.segmented_control(
         "Selecciona el módulo:",
         options=["Inicio", "Bisección"],
-        default="Inicio"
+        default="Inicio",
+        selection_mode='single'
     )
-
-    if mostrar_tp and choice != 'Inicio':
-        mostrar_tp = st.checkbox("Mostrar Consigna del TP")
-        st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
 
     if choice == 'Inicio':
         inicio.inicio()
     elif choice == 'Bisección':
+        mostrar_tp = st.checkbox("Mostrar Consigna del TP")
+        if mostrar_tp:
+            st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
         biseccion.mostrar_info()
 
 if __name__ == '__main__':
