@@ -19,7 +19,7 @@ def main():
     
     mostrar_tp = st.checkbox("Mostrar Consigna del TP")
     
-    if mostrar_tp:
+    if mostrar_tp and choice != 'Inicio':
         st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
 
     if choice == 'Inicio':

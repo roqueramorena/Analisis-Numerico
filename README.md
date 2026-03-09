@@ -13,17 +13,17 @@ Ejecutar la aplicación
 
 📂 Estructura del Proyecto
 
-├── 📂archivos
+┠━ 📂archivos
 
-├── app.py            # Archivo principal de la aplicación
+┠━ app.py            # Archivo principal de la aplicación
 
-├── inicio.py         # Página de introducción
+┠━ inicio.py         # Página de introducción
 
-├── biseccion.py      # Implementación del método de bisección
+┠━ biseccion.py      # Implementación del método de bisección
 
-├── ecuacion.py       # Evaluación y formateo de funciones
+┠━ ecuacion.py       # Evaluación y formateo de funciones
 
-├── requirements.txt  # Dependencias del proyecto
+┖━ requirements.txt  # Dependencias del proyecto
 
 
 🛠️ Tecnologías utilizadas
