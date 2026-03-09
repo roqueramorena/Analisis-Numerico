@@ -4,3 +4,4 @@ streamlit[pdf]
 pandas
 matplotlib
 numpy
+sympy

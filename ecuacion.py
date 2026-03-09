@@ -1,8 +1,11 @@
 import numpy as np
 import re
 
-def evaluar_f(formula,x):
+def evaluar_f(formula,x=0):
     formula_python = formula.replace('^','**')
+    
+    formula_python = re.sub(r'(\d)x',r'\1*x',formula_python)
+
     return eval(formula_python, {
         'x':x,
         'np':np,
@@ -15,16 +18,29 @@ def evaluar_f(formula,x):
         'pi': np.pi
     })
 
+# def f_prueba(formula):
+#     formula_python = formula.replace('^','**')
+    
+
+#     return formula_python
+
 def formateador_pro(formula):
     f = formula.replace('**','^').replace('sen','sin')
 
     f = re.sub(r'\((.*?)\)/\(?([a-zA-Z0-9.x\s\+\-\*]+)\)?', r'\\frac{\1}{\2}', f)
 
     f = re.sub(r'\^\((.*?)\)', r'^{\1}', f)
+    
+    f = re.sub(r'(\d)x',r'\1*x',f)
 
     funciones = r'(sin|cos|exp|log|pi)'
+    
     f = re.sub(funciones, r'\\\1', f)
 
     f = f.replace('*', r' \cdot ')
 
     return f'\\displaystyle f(x) = {f}'
+
+# if __name__ == '__main__':
+#     formula = 'x^2 + cosx - 6'
+#     print(f_prueba(formula))

@@ -9,13 +9,14 @@ def biseccion(f,a,b,err,max_i):
     'a[i]':[],
     'b[i]':[],
     'x[i]':[],
-    'f(x[i])':[]
+    'f(x[i])':[],
+    'Dx[i]':[]
     }
     fa = ec.evaluar_f(f,a)
     fb = ec.evaluar_f(f,b)
 
     # Casos base
-    if fa * fb>0:
+    if fa * fb > 0:
         return None, []
     if a  > b:
         a, b = b, a
@@ -30,6 +31,7 @@ def biseccion(f,a,b,err,max_i):
         cuadro['b[i]'].append(b)
         cuadro['x[i]'].append(x)
         cuadro['f(x[i])'].append(fx)
+        cuadro['Dx[i]'].append(x-a)
 
         if abs(fx) < err or max_i<=0: 
             return x, cuadro
@@ -54,10 +56,10 @@ def mostrar_info():
     
     col1, col2 = st.columns(2)
     with col1:
-        inf = st.number_input('Ingresar intervalo inferior',value=-10.0,step=0.5)
-        sup = st.number_input('Ingresar intervalo superior',value=10.0,step=0.5)
+        inf = st.number_input('Ingresar intervalo inferior',value=-10.0,step=2.0)
+        sup = st.number_input('Ingresar intervalo superior',value=10.0,step=2.0)
     with col2:
-        max_i = st.number_input('Ingresar cantidad de iteraciones',min_value=1,max_value=30,value=5)
+        max_i = st.number_input('Ingresar cantidad de iteraciones',min_value=1,max_value=30,value=10)
         err = st.number_input('Exponente de tolerancia de error $E = 10^{-n}$',value=2,min_value=1, max_value=10)
         err = 10**(-err)
     try:
