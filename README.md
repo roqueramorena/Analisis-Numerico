@@ -9,25 +9,22 @@ Aplicación interactiva desarrollada en **Python + Streamlit** para la resoluci�
    ```
 3. Crear entorno de ejecución
 
-    Se recomienda ejecutar el proyecto dentro de un entorno virtual de Python para evitar conflictos entre dependencias.
-    - Crear el entorno virtual:
-        ```bash
-        python -m venv venv
-        ```
-    - Activar el entorno:
-        - En Windows:
+    Se recomienda ejecutar el proyecto dentro de un entorno virtual de Python para evitar conflictos entre dependencias. Crear y activar el entorno virtual:
+      - En Windows:
+   
+         ```bash
+         python -m venv env
+         .\env\Scripts\activate
+         ```
+      
+      - En Linux o Mac:
+      
+         ```bash
+         python3 -m venv env
+         source env/bin/activate
+         ```
 
-            ```bash
-            venv\Scripts\activate
-            ```
-
-        - En Linux o Mac:
-        
-            ```bash
-            source venv/bin/activate
-            ```
-
-4. Instalar dependencias (en consola):
+4. Instalar dependencias:
 
     ```bash
     pip install -r requirements.txt
