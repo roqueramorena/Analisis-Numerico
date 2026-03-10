@@ -19,13 +19,13 @@ def main():
         selection_mode='single'
     )
 
-    if choice == 'Inicio':
-        inicio.inicio()
-    elif choice == 'Bisección':
+    if choice == 'Bisección':
         mostrar_tp = st.checkbox("Mostrar Consigna del TP")
         if mostrar_tp:
             st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
         biseccion.mostrar_info()
+    else:
+        inicio.inicio()
 
 if __name__ == '__main__':
     main()

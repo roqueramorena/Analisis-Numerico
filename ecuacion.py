@@ -18,12 +18,6 @@ def evaluar_f(formula,x=0):
         'pi': np.pi
     })
 
-# def f_prueba(formula):
-#     formula_python = formula.replace('^','**')
-    
-
-#     return formula_python
-
 def formateador_pro(formula):
     f = formula.replace('**','^').replace('sen','sin')
 
@@ -40,7 +34,3 @@ def formateador_pro(formula):
     f = f.replace('*', r' \cdot ')
 
     return f'\\displaystyle f(x) = {f}'
-
-# if __name__ == '__main__':
-#     formula = 'x^2 + cosx - 6'
-#     print(f_prueba(formula))
