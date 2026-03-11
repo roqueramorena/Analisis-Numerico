@@ -23,7 +23,8 @@ def dibujar(f,raiz,inf,sup):
             showgrid=False,
             zeroline=False,
             layer='below traces'
-        )
+        ),
+        plot_bgcolor='white'
     )
     # líneas de cuadrícula como shapes en el nivel más bajo
     for xi in x_grids:

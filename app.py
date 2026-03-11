@@ -6,10 +6,11 @@ st.set_page_config(
     page_title='App Análisis Numerico',
     page_icon='📊',
     )
+
 mostrar_tp = False
 
 def main():
-
+    
     st.title('App Análisis Numérico 📊')
 
     choice = st.segmented_control(

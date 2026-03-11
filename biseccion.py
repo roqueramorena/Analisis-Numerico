@@ -24,7 +24,7 @@ def biseccion(f,a,b,err):
         fa, fb = fb, fa
     
     # Calculo de la raíz
-    x_anteior = a
+    x_anterior = a
     while True:
         x = (a+b)/2
         fx = ec.evaluar_f(f,x)
@@ -37,10 +37,10 @@ def biseccion(f,a,b,err):
 
         if abs(fx) < err: 
             return x, cuadro
-        if round(x,6) == round(x_anteior,6):
+        if round(x,6) == round(x_anterior,6):
             break
         
-        x_anteior = x
+        x_anterior = x
         
         # Opciones
         if fx * fa < 0:

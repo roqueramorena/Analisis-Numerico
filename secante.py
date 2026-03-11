@@ -71,9 +71,6 @@ def mostrar_info():
         err = st.number_input('Exponente de tolerancia de error',value=2,min_value=1, max_value=10)
         err = 10**(-err)
     try:
-        x = np.linspace(inf, sup, 100)
-        y = ec.evaluar_f(formula,x)
-        
         raiz, datos = secante(formula,inf,sup,err)
         
         if raiz is not None:
