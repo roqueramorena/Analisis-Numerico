@@ -1,62 +1,77 @@
+import plotly.graph_objects as go
+import streamlit as st
 import numpy as np
 import utils as ec
-import plotly.graph_objects as go
 
-def dibujar(f,raiz,inf,sup):
-    x = np.linspace(inf, sup, 300)
-    y = ec.evaluar_f(f,x)
-    fig = go.Figure()
-    ymin, ymax = float(np.min(y)), float(np.max(y))
-    x_grids = np.linspace(inf, sup, 11)
-    y_grids = np.linspace(ymin, ymax, 11)
+def dibujar(f, raiz, inf, sup):
+    # Calculamos la distancia más larga desde la raíz a los extremos
+    # para que al usarla en ambos lados, la raíz quede en el centro exacto.
+    distancia_a_inf = abs(raiz - inf)
+    distancia_a_sup = abs(raiz - sup)
+    radio_vista = max(distancia_a_inf, distancia_a_sup)
     
+    # Le sumamos un pequeño margen (10%) para que no toque los bordes
+    radio_con_margen = radio_vista * 1.1
+
+    # Generamos los puntos basados en ese radio para que la curva no se corte
+    x = np.linspace(raiz - radio_con_margen, raiz + radio_con_margen, 1000)
+    y = ec.evaluar_f(f, x)
+    
+    fig = go.Figure()
+
+    # Función f(x)
+    fig.add_trace(go.Scatter(
+        x=x, y=y, 
+        mode='lines', 
+        name='f(x)', 
+        line=dict(color='#1E88E5', width=3)
+    ))
+
+    # Raíz (El centro del mundo)
+    fig.add_trace(go.Scatter(
+        x=[raiz], y=[0],
+        mode='markers',
+        name='Raíz Aproximada',
+        marker=dict(size=12, color='#00E676', line=dict(color='white', width=2))
+    ))
+
     fig.update_layout(
-        dragmode=False,
+        template='plotly_white',
+        dragmode=False, 
+        hovermode='x unified',
+        margin=dict(l=40, r=40, t=100, b=40),
+        legend=dict(orientation="h", yanchor="bottom", y=1.1, xanchor="center", x=0.5),
+        
         xaxis=dict(
-            title='Eje X',
-            showgrid=False,
-            zeroline=False,
-            layer='below traces',
+            # Aplicamos el rango simétrico respecto a la raíz
+            range=[raiz - radio_con_margen, raiz + radio_con_margen],
+            showgrid=True,
+            gridcolor='rgba(200, 200, 200, 0.2)',
+            zeroline=True,
+            zerolinecolor='rgba(176, 196, 222, 0.8)', 
+            zerolinewidth=2.5
         ),
         yaxis=dict(
-            title='Eje Y',
-            showgrid=False,
-            zeroline=False,
-            layer='below traces'
-        ),
-        plot_bgcolor='white'
-    )
-    # líneas de cuadrícula como shapes en el nivel más bajo
-    for xi in x_grids:
-        fig.add_shape(dict(
-            type='line', x0=xi, x1=xi, y0=ymin, y1=ymax,
-            line=dict(color='lightgray', width=1, dash='dot'),
-            layer='below'
-        ))
-    for yi in y_grids:
-        fig.add_shape(dict(
-            type='line', x0=inf, x1=sup, y0=yi, y1=yi,
-            line=dict(color='lightgray', width=1, dash='dot'),
-            layer='below'
-        ))
-    
-    # La función se dibuja encima de ejes y cuadrícula
-    fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='f(x)', line=dict(color='blue', width=2)))
-    
-    fig.add_vline(x=0, line_color="red", line_width=1, line_dash="solid", opacity=1, layer='below')
-    
-    fig.add_hline(y=0, line_color="red", line_width=1, line_dash="solid", opacity=1, layer='below')
-    
-    fig.add_trace(go.Scatter(
-        x=[raiz], 
-        y=[0],
-        mode='markers',
-        name='Raíz',
-        marker=dict(
-            size=10,
-            color='green',
-            symbol='circle',
-            line=dict(color='black', width=1)
+            range = [-max(abs(y))*1.2, max(abs(y))*1.2],
+            showgrid=True,
+            gridcolor='rgba(200, 200, 200, 0.2)',
+            zeroline=True,
+            zerolinecolor='rgba(176, 196, 222, 0.8)',
+            zerolinewidth=2.5
         )
-    ))
-    return fig
+    )
+    st.plotly_chart(
+                fig, 
+                use_container_width=True, 
+                config={
+                    'scrollZoom': False,
+                    'displayModeBar': True,
+                    'displaylogo': False,
+                    'showTips': False,
+                    'modeBarButtons': [[
+                        'zoomIn2d', 
+                        'zoomOut2d', 
+                        'resetViews'
+                    ]]
+                }
+            )

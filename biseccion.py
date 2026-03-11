@@ -26,7 +26,7 @@ def biseccion(f,a,b,err):
     # Calculo de la raíz
     x_anterior = a
     while True:
-        x = (a+b)/2
+        x = round((a+b)/2,6)
         fx = ec.evaluar_f(f,x)
 
         cuadro['a[i]'].append(a)
@@ -61,24 +61,19 @@ def mostrar_info():
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        inf = st.number_input('Ingresar intervalo inferior',value=-5.0,step=2.0)
+        inf = st.number_input('Ingresar intervalo inferior',value=-10.0,step=2.0)
     with col2:
-        sup = st.number_input('Ingresar intervalo superior',value=5.0,step=2.0)
+        sup = st.number_input('Ingresar intervalo superior',value=10.0,step=2.0)
     with col3:
         err = st.number_input('Tolerancia de error $E = 10^{-n}$',value=2,min_value=1, max_value=10)
         err = 10**(-err)
     try:
         raiz, datos = biseccion(formula,inf,sup,err)
-        
+
         if raiz is not None:
             st.success(f'Raíz encontrada en: $$x ≈ {round(raiz,6)}$$')
 
-            st.plotly_chart(
-                grafico.dibujar(formula,raiz,inf,sup),
-                config={
-                'scrollZoom': False,
-                'staticPlot': False
-            })
+            grafico.dibujar(formula, raiz, inf, sup)
                 
             mostrar_datos = st.checkbox("Mostrar datos de iteraciones")
             

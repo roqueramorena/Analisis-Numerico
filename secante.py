@@ -76,12 +76,7 @@ def mostrar_info():
         if raiz is not None:
             st.success(f'Raíz encontrada en: $$x ≈ {round(raiz,6)}$$')
 
-            st.plotly_chart(
-                grafico.dibujar(formula,raiz,inf,sup),
-                config={
-                'scrollZoom': False,
-                'staticPlot': False
-            })
+            grafico.dibujar(formula, raiz, inf, sup)
 
             mostrar_datos = st.checkbox("Mostrar datos de iteraciones")
             if mostrar_datos:
