@@ -1,7 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import ecuacion as ec
+import utils as ec
 import pandas as pd
 
 def biseccion(f,a,b,err,max_i):
@@ -52,7 +52,7 @@ def mostrar_info():
     formula = st.text_input('Escribe tu función $f(x)$:', value='x**2 + 11*x - 6')
     st.caption("Usa `**` para potencias (ej: `x**2`) y `*` para productos. También puedes usar `sin(x)`, `exp(x)`, etc.")
     
-    st.latex(ec.formateador_pro(formula))
+    st.latex(ec.mostrar_formula(formula))
     
     col1, col2 = st.columns(2)
     with col1:

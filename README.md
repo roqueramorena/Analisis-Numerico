@@ -14,7 +14,7 @@ Aplicaci√≥n interactiva desarrollada en **Python + Streamlit** para la resoluci√
    Crear entorno virtual:
 
       ```bash
-         python -m venv .venv
+      python -m venv .venv
       ```
 
    Activar el entorno virtual:

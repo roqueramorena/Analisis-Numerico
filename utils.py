@@ -18,7 +18,7 @@ def evaluar_f(formula,x=0):
         'pi': np.pi
     })
 
-def formateador_pro(formula):
+def mostrar_formula(formula):
     f = formula.replace('**','^').replace('sen','sin')
 
     f = re.sub(r'\((.*?)\)/\(?([a-zA-Z0-9.x\s\+\-\*]+)\)?', r'\\frac{\1}{\2}', f)
