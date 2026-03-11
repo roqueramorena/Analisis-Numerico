@@ -14,7 +14,7 @@ Aplicaci√≥n interactiva desarrollada en **Python + Streamlit** para la resoluci√
    Crear entorno virtual:
 
       ```bash
-         python -m venv env
+         python -m venv .venv
       ```
 
    Activar el entorno virtual:
@@ -22,13 +22,13 @@ Aplicaci√≥n interactiva desarrollada en **Python + Streamlit** para la resoluci√
       - En Windows:
    
          ```bash
-         .\env\Scripts\activate
+         .venv\Scripts\activate
          ```
       
       - En Linux o Mac:
       
          ```bash
-         source env/bin/activate
+         source .venv/bin/activate
          ```
 
 5. Instalar dependencias:
