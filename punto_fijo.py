@@ -7,7 +7,6 @@ import pandas as pd
 
 def punto_fijo (g,x0,max_i=100):
     cuadro={
-        'i': [],
         'x[i]':[],
         'g(x[i])':[],
         'Error Absoluto': []
@@ -18,9 +17,8 @@ def punto_fijo (g,x0,max_i=100):
         try:
             x_nuevo=ec.evaluar_f(g, x_actual)
 
-            error_actual= abs(x_nuevo - x_actual) 
+            error_actual= abs(x_nuevo - x_actual)
 
-            cuadro['i'].append(i)
             cuadro['x[i]'].append(f'{x_actual:.6f}')
             cuadro['g(x[i])'].append(f'{x_nuevo:.6f}')
             cuadro['Error Absoluto'].append(f'{error_actual:.6f}')
@@ -32,7 +30,7 @@ def punto_fijo (g,x0,max_i=100):
                 return x_nuevo, cuadro, False
             
             x_actual = x_nuevo
-
+            
         except Exception as e:
             return None, cuadro, False
         
@@ -63,7 +61,7 @@ def mostrar_info():
         if raiz is not None:
             opciones = ["Mostrar datos de iteraciones"]
             
-            # 1. CORRECCIÓN: Agregamos selection_mode y un default vacío
+            # 1. Agregamos selection_mode y un default vacío
             seleccion = st.pills(
                 label="Opciones de visualización:", 
                 options=opciones, 
@@ -78,17 +76,15 @@ def mostrar_info():
                 st.error('El método DIVERGIÓ o no alcanzó la tolerancia requerida.')
                 st.warning(f'Último valor calculado: $x = {round(raiz, 6)}$')
 
-            # 2. CORRECCIÓN: Guardamos la validación en una variable segura
+            # Guardamos la validación en una variable segura
             mostrar_datos = "Mostrar datos de iteraciones" in seleccion
 
             # Dibujamos el gráfico
             grafico.dibujar(
                 f=formula_g, 
                 raiz=raiz, 
-                inf=min(raiz-10,raiz+10),
-                sup=max(raiz-10,raiz+10),
-                # inf=raiz-10,
-                # sup=raiz+10,
+                inf=raiz-5,
+                sup=raiz+5,
                 key="grafico_pf", 
                 iteraciones=datos if mostrar_datos else None
             )
@@ -104,7 +100,7 @@ def mostrar_info():
             # Mostramos la tabla si corresponde
             if mostrar_datos:
                 df = pd.DataFrame(datos)
-                st.dataframe(df, hide_index=True)
+                st.dataframe(df)
                 
         else:
             st.error('Ocurrió un error matemático durante el cálculo (probablemente la función divergió hacia el infinito o hay raíces complejas).')
