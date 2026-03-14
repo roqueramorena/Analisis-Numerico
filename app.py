@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_pdf_viewer import pdf_viewer
-import inicio, biseccion, secante
+import inicio, biseccion, secante, punto_fijo
 
 st.set_page_config(
     page_title='App Análisis Numerico',
@@ -15,7 +15,7 @@ def main():
 
     choice = st.segmented_control(
         "Selecciona el módulo:",
-        options=["Inicio", "Bisección","Secante"],
+        options=["Inicio", "Bisección","Secante","Punto Fijo"],
         default="Inicio",
         selection_mode='single'
     )
@@ -25,11 +25,19 @@ def main():
         if mostrar_tp:
             st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
         biseccion.mostrar_info()
+
     elif choice == 'Secante':
         mostrar_tp = st.checkbox("Mostrar Consigna del TP")
         if mostrar_tp:
             st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
         secante.mostrar_info()
+
+    elif choice == 'Punto Fijo':
+        mostrar_tp = st.checkbox("Mostrar Consigna del TP")
+        if mostrar_tp:
+            st.pdf("archivos/Consigna Tp 1 inf tele.pdf")
+        punto_fijo.mostrar_info()
+    
     else:
         inicio.inicio()
 
