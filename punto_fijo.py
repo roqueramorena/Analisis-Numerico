@@ -1,5 +1,5 @@
 import streamlit as st
-import grafico_abierto
+import grafico
 import utils as ec
 import pandas as pd
 
@@ -83,7 +83,7 @@ def mostrar_info():
             mostrar_datos = "Mostrar datos de iteraciones" in seleccion
 
             # Dibujamos el gráfico
-            grafico_abierto.dibujar_abierto(
+            grafico.dibujar_abierto(
                 f=formula_g, 
                 raiz=raiz, 
                 x0=x_inicial, 
