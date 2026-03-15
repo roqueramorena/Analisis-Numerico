@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from core import grafico, comparativa, utils as ec
+from core import grafico, comparativa, utils as ut
 
 @st.cache_data(show_spinner="Calculando telemetría...")
 def secante(f,a,b,err):
@@ -11,8 +11,8 @@ def secante(f,a,b,err):
     'f(x[i])':[],
     'Dx[i]':[]
     }
-    fa = ec.evaluar_f(f,a)
-    fb = ec.evaluar_f(f,b)
+    fa = ut.evaluar_f(f,a)
+    fb = ut.evaluar_f(f,b)
 
     # Casos base
     if fa * fb > 0:
@@ -29,7 +29,7 @@ def secante(f,a,b,err):
     while True :
         
         x = b - (fb * (b - a)) / (fb - fa)
-        fx = ec.evaluar_f(f, x)
+        fx = ut.evaluar_f(f, x)
 
         if round(x,6) == round(valor_anterior,6):
             break
@@ -54,13 +54,14 @@ def secante(f,a,b,err):
     return x, cuadro
 
 def mostrar_info():
-    st.header('Metodo Secante')
+    st.markdown("<h1 style='text-align: center;'>Secante</h1>", unsafe_allow_html=True)
+    
     # Dividimos la pantalla: 1 parte para inputs, 2 partes para gráficos
     col_in, col_out = st.columns([1, 2], gap="large")
     with col_in:
         formula = st.text_input('Escribe tu función $f(x)$:', value='x**2 + 11*x - 6')
         st.caption("Usa `( )` para agrupar elementos. Por ejemplo `e^(1-x)` para $$ e^{1-x}$$.")
-        st.latex(ec.mostrar_formula(formula))
+        st.latex(ut.mostrar_formula(formula))
     
         c1, c2 = st.columns(2)
         with c1:

@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import grafico
+from core import grafico
 from metodos import biseccion, secante, newton
 
 def comparar_generico(nombre_metodo1, nombre_metodo2, formula, err, mostrar_datos, **kwargs):

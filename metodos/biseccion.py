@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from core import grafico, comparativa, utils as ec
+from core import grafico, comparativa, utils as ut
 
 @st.cache_data(show_spinner="Calculando telemetría...")
 def biseccion(f,a,b,err):
@@ -11,8 +11,8 @@ def biseccion(f,a,b,err):
     'f(x[i])':[],
     'Dx[i]':[]
     }
-    fa = ec.evaluar_f(f,a)
-    fb = ec.evaluar_f(f,b)
+    fa = ut.evaluar_f(f,a)
+    fb = ut.evaluar_f(f,b)
 
     # Casos base
     if fa * fb > 0:
@@ -26,7 +26,7 @@ def biseccion(f,a,b,err):
     i=0
     while i < 100:
         x = round((a+b)/2,6)
-        fx = ec.evaluar_f(f,x)
+        fx = ut.evaluar_f(f,x)
 
         cuadro['a[i]'].append(f'{a:.6f}')
         cuadro['b[i]'].append(f'{b:.6f}')
@@ -53,7 +53,7 @@ def biseccion(f,a,b,err):
     return x, cuadro
 
 def mostrar_info():
-    st.header('Metodo Bisección')
+    st.markdown("<h1 style='text-align: center;'>Metodo Bisección</h1>", unsafe_allow_html=True)
     # Dividimos la pantalla: 1 parte para inputs, 2 partes para gráficos
     col_in, col_out = st.columns([1, 2], gap="large")
 
@@ -61,7 +61,7 @@ def mostrar_info():
         
         formula = st.text_input('Escribe tu función $f(x)$:', value='x**2 + 11*x - 6')
         st.caption("Usa `( )` para agrupar elementos. Por ejemplo `e^(1-x)` para $e^{1-x}$.")
-        st.latex(ec.mostrar_formula(formula))
+        st.latex(ut.mostrar_formula(formula))
 
         c1, c2 = st.columns(2)
         with c1:

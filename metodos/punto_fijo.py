@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from core import grafico, utils as ec
+from core import grafico, utils as ut
 
 @st.cache_data(show_spinner="Calculando iteraciones...")
 def punto_fijo (g,x0,max_i=100):
@@ -13,7 +13,7 @@ def punto_fijo (g,x0,max_i=100):
     i=0
     while i < max_i:
         try:
-            x_nuevo=ec.evaluar_f(g, x_actual)
+            x_nuevo=ut.evaluar_f(g, x_actual)
 
             error_actual= abs(x_nuevo - x_actual)
 
@@ -35,7 +35,7 @@ def punto_fijo (g,x0,max_i=100):
     return x_actual, cuadro, False
 
 def mostrar_info():
-    st.header('Metodo Punto Fijo')
+    st.markdown("<h1 style='text-align: center;'>Punto Fijo</h1>", unsafe_allow_html=True)
     # Dividimos la pantalla: 1 parte para inputs, 2 partes para gráficos
     col_in, col_out = st.columns([1, 2], gap="large")
 
@@ -45,16 +45,16 @@ def mostrar_info():
         Recuerda que estamos buscando la raíz de $f(x) = 0$ resolviendo $x = g(x)$.
         """)
         
-        formula_g = st.text_input('Escribe tu función despejada $g(x)$:', value='(x + 2)**(0.5)')
-        st.caption("Ejemplo: Si tu $f(x) = x^2 - x - 2 = 0$, una forma de $g(x)$ es `(x + 2)**0.5` o `(x**2 - 2)`.")
+        formula_g = st.text_input('Escribe tu función despejada $g(x)$:', value='(x + 2)**(1/2)')
+        st.caption("Ejemplo: Si tu $f(x) = x^2 - x - 2 = 0$, una forma de $g(x)$ es $(x + 2)^{1/2}$ o $(x^2 - 2)$.")
         
-        st.latex('g(x)'+ec.mostrar_formula(formula_g)[4:])
+        st.latex('g(x)'+ut.mostrar_formula(formula_g)[4:])
     
         c1, c2 = st.columns(2)
         with c1:
             x_inicial = st.number_input('Ingresar punto de inicio $$(x_0)$$', value=1.0, step=0.5)
         with c2:
-            err_input = st.number_input('Tolerancia de error $E = 10^{-n}$', value=4, min_value=1, max_value=10)
+            err_input = st.number_input('Tolerancia de error $E = 10^{-n}$', value=2, min_value=1, max_value=10)
             err = 10**(-err_input)
         
         try:

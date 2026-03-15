@@ -11,7 +11,7 @@ def agregar_dato():
     st.session_state.input_x = 0.0
     st.session_state.input_y = 0.0
 
-def calcular_regresión():
+def calcular_regresion():
     m, int = statistics.linear_regression(
         st.session_state.datos['x'],
         st.session_state.datos['y']
@@ -20,13 +20,12 @@ def calcular_regresión():
         raiz = int / m * (-1)
         return m, int, raiz
         
-
     else:
         st.error('La recta no tiene raices.')
         return None
     
 def mostrar_info():
-    st.header('Regresión Lineal')
+    st.markdown("<h1 style='text-align: center;'>Regresión Lineal</h1>", unsafe_allow_html=True)
     # Dividimos la pantalla: 1 parte para inputs, 2 partes para gráficos
     col_in, col_out = st.columns([1, 2], gap="large")
 
@@ -56,7 +55,7 @@ def mostrar_info():
                     st.session_state.datos = {'x': [], 'y': []}
 
         if len(st.session_state.datos['x']) > 1:
-            m, int, raiz = calcular_regresión()
+            m, int, raiz = calcular_regresion()
             st.latex(f'f(x) = {m:.4f}x {'+' if int>=0 else '-'} {abs(int):.4f}')
             st.space('xsmall')
 
@@ -86,4 +85,22 @@ def mostrar_info():
         else:
             st.info('Agrega más puntos para mostrar la regresión y sus datos asociados.')
             
+    st.divider()
+    st.header('Código hecho en Python')
+    st.code('''
+def calcular_regresion(datos):
+    m, int = statistics.linear_regression(
+        datos['x'],
+        datos['y']
+    )
+    if m != 0:
+        raiz = int / m * (-1)
+        return m, int, raiz
+        
+    else:
+        st.error('La recta no tiene raices.')
+        return None
+            ''',
+            "python")
+
     

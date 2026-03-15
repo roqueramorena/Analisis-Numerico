@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 import streamlit as st
 import numpy as np
-import utils as ec
+from core import utils as ut
 
 @st.cache_data(show_spinner="Cargando trazado de la curva...")
 def generar_base_fig(f, raiz, inf, sup,key=None):
@@ -12,7 +12,7 @@ def generar_base_fig(f, raiz, inf, sup,key=None):
 
     # Generamos los puntos basados en ese radio para que la curva no se corte
     x = np.linspace(raiz - radio_con_margen, raiz + radio_con_margen, 1000)
-    y = ec.evaluar_f(f, x)
+    y = ut.evaluar_f(f, x)
     
     fig = go.Figure()
 
@@ -116,7 +116,7 @@ def generar_puntos_pf(f, fig, datos, raiz):
             x_puntos = [float(val) for val in datos['x[i]'][:-1]] 
             
             # En punto fijo, los puntos van sobre la curva g(x), en Newton sobre el eje X
-            y_puntos = ec.evaluar_f(f, np.array(x_puntos))
+            y_puntos = ut.evaluar_f(f, np.array(x_puntos))
 
             etiquetas = [f"x_{i}" for i in range(len(x_puntos))]
             fig_final.add_trace(go.Scatter(

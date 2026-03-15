@@ -1,8 +1,7 @@
 import streamlit as st
 import sympy as sp
 import pandas as pd
-from core import grafico, comparativa, utils as ec
-
+from core import grafico, comparativa, utils as ut
 def newton(x_n,f,err):
    # Creamos el diccionario para guardar las iteraciones
     cuadro = {
@@ -13,9 +12,9 @@ def newton(x_n,f,err):
     }
     
     while True:
-        fa = ec.evaluar_f(f, x_n)
+        fa = ut.evaluar_f(f, x_n)
         derivada = str(sp.diff(f, 'x'))
-        d_evaluada = round(ec.evaluar_f(derivada, x_n), 6)
+        d_evaluada = round(ut.evaluar_f(derivada, x_n), 6)
         
         # Evitamos la división por cero si la derivada da 0
         if d_evaluada == 0:
@@ -30,7 +29,7 @@ def newton(x_n,f,err):
         cuadro['x[i+1]'].append(x_n1)
 
         # Condición de corte
-        if abs(ec.evaluar_f(f, x_n1)) <= err:
+        if abs(ut.evaluar_f(f, x_n1)) <= err:
             return x_n1, cuadro
         
         # Condición de corte por si se estanca
@@ -40,14 +39,14 @@ def newton(x_n,f,err):
         x_n = x_n1
 
 def mostrar_info():
-    st.header('Metodo de Newton')
+    st.markdown("<h1 style='text-align: center;'>Newton</h1>", unsafe_allow_html=True)
     # Dividimos la pantalla: 1 parte para inputs, 2 partes para gráficos
     col_in, col_out = st.columns([1, 2], gap="large")
 
     with col_in:
         formula = st.text_input('Escribe tu función $f(x)$:', value='x**2 + 11*x - 6')
         st.caption("Usa `( )` para agrupar elementos. Por ejemplo `e^(1-x)` para $$ e^{1-x}$$.")
-        st.latex(ec.mostrar_formula(formula))
+        st.latex(ut.mostrar_formula(formula))
         c1, c2 = st.columns(2)
         with c1:
             x_n = st.number_input('Ingresar valor inicial $x_n$',value=-10.0,step=2.0)
@@ -66,7 +65,7 @@ def mostrar_info():
                     selection_mode='single'
                 )
                 
-                mostrar_datos = st.checkbox("Mostrar iteraciones en el gráfico")
+                mostrar_datos = st.toggle("Mostrar iteraciones en el gráfico")
                 # Si eligió alguna de las opciones
                 if seleccion:
                     st.info(f"Para comparar con {seleccion}, necesitamos un intervalo inicial:")
