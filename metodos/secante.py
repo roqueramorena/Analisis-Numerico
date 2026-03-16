@@ -86,7 +86,7 @@ def mostrar_info():
             with c2:
                 sup = st.number_input('Ingresar intervalo superior',value=10.0,step=2.0)
             
-            err = st.number_input('Tolerancia de error $E = 10^{-n}$',value=2,min_value=1, max_value=10)
+            err = st.number_input('Tolerancia de error: $ε = 10^{-n}$',value=2,min_value=1, max_value=10)
             err = 10**(-err)
 
             # Realizamos el cálculo aquí para saber si habilitar las opciones    

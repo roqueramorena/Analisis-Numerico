@@ -64,14 +64,14 @@ def mostrar_info():
 
             c1, c2, c3 = st.columns(3)
             with c1:
-                st.button('Agregar Dato', on_click=agregar_dato, use_container_width=True)
+                st.button('Agregar Dato', on_click=agregar_dato, width='stretch')
             with c2:
-                if st.button('Borrar último', use_container_width=True):
+                if st.button('Borrar último', width='stretch'):
                     if st.session_state.datos['x']:
                         st.session_state.datos['x'].pop()
                         st.session_state.datos['y'].pop()
             with c3:
-                if st.button('Borrar datos', use_container_width=True):
+                if st.button('Borrar datos', width='stretch'):
                     if st.session_state.datos['x']:
                         st.session_state.datos = {'x': [], 'y': []}
 
@@ -82,7 +82,7 @@ def mostrar_info():
 
             st.dataframe(
                 pd.DataFrame(st.session_state.datos),
-                use_container_width=True,
+                width='stretch',
                 hide_index=True,
                 key='puntos'
             )

@@ -28,7 +28,7 @@ def comparar_generico(nombre_metodo1, nombre_metodo2, formula, err, mostrar_dato
             
             # Tabla dentro del expander
             with st.expander(f"Ver tabla - {nombre_metodo1}"):
-                st.dataframe(pd.DataFrame(datos1), use_container_width=True)
+                st.dataframe(pd.DataFrame(datos1), width='stretch')
         else:
             st.error("No convergió")
 
@@ -44,6 +44,6 @@ def comparar_generico(nombre_metodo1, nombre_metodo2, formula, err, mostrar_dato
             
             # Tabla dentro del expander
             with st.expander(f"Ver tabla - {nombre_metodo2}"):
-                st.dataframe(pd.DataFrame(datos2), use_container_width=True)
+                st.dataframe(pd.DataFrame(datos2), width='stretch')
         else:
             st.error("No convergió")

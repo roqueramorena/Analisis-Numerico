@@ -20,7 +20,7 @@ def generar_base_fig(f, raiz, inf, sup,key=None):
     fig.add_trace(go.Scatter(
         x=x, y=y, 
         mode='lines', 
-        name='f(x)', 
+        name='f(x)' if key!='grafico_pf' else 'g(x)', 
         line=dict(color='#1E88E5', width=3)
     ))
     if key == 'grafico_pf':
@@ -144,7 +144,7 @@ def generar_puntos_pf(f, fig, datos, raiz):
     ))
     return fig_final
 
-def generar_puntos(f, fig, datos, raiz):
+def generar_puntos(fig, datos, raiz):
     
     fig_final = go.Figure(fig)
     
@@ -190,12 +190,12 @@ def dibujar(f, raiz, inf, sup, key=None, iteraciones=None):
     elif key == 'regresion':
         fig_final = generar_puntos_reg(fig_final,iteraciones,raiz)
     else:
-        fig_final = generar_puntos(f,fig_final,iteraciones,raiz)
+        fig_final = generar_puntos(fig_final,iteraciones,raiz)
         
     # Finalmente, mostramos el gráfico unificado
     st.plotly_chart(
         fig_final,
-        use_container_width=True,
+        width='stretch',
         key=key,
         config={
             'scrollZoom': False,

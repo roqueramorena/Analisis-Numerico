@@ -58,21 +58,47 @@ def mostrar_info():
         col_in, col_out = st.columns([1, 2], gap="large")
 
         with col_in:
-            st.info("""
-            Para este método, debes ingresar la función ya despejada $$g(x)$$. 
-            Recuerda que estamos buscando la raíz de $f(x) = 0$, resolviendo $x = g(x)$.
-            """)
             
-            formula_g = st.text_input('Escribe tu función despejada $g(x)$:', value='(x + 2)**(1/2)')
-            st.caption("Ejemplo: Si tu $f(x) = x^2 - x - 2 = 0$, una forma de $g(x)$ es $(x + 2)^{1/2}$ o $(x^2 - 2)$.")
+            modo = st.radio(
+                "¿Cómo deseas ingresar la función?",
+                ["Ingresar g(x) despejada (Recomendado)", "Generar g(x) automáticamente a partir de f(x)"],
+                help="El método automático usa la transformación trivial g(x) = x - f(x), pero suele divergir con facilidad."
+            )
             
-            st.latex('g(x)'+ut.mostrar_formula(formula_g)[4:])
+            if modo == "Ingresar g(x) despejada (Recomendado)":
+                formula_g = st.text_input('Escribe tu función despejada $g(x)$:', value='(x + 2)**(0.5)')
+                st.caption("Ejemplo: Si tu $f(x) = x^2 - x - 2 = 0$, usa `(x + 2)**0.5`.")
+                st.latex('g(x)' + ut.mostrar_formula(formula_g)[4:])
+            else:
+                
+                
+                st.warning('⚠️ Opción en desarrollo.')
+                
+                
+                formula_f = st.text_input('Escribe tu función original $f(x)$:', value='x**2 - x - 2')
+                st.caption("Transformación aplicada: $g(x) = x - f(x)$")
+                st.latex(ut.mostrar_formula(formula_f))
+                
+                # Generamos automáticamente el string de la nueva función g(x)
+                formula_g = f"x - ({formula_f})"
+                st.latex(f"g(x) = x - ({ut.mostrar_formula(formula_f)[7:]})") # Mostramos cómo quedó
+            
+            
+            # st.info("""
+            # Para este método, debes ingresar la función ya despejada $$g(x)$$. 
+            # Recuerda que estamos buscando la raíz de $f(x) = 0$, resolviendo $x = g(x)$.
+            # """)
+            
+            # formula_g = st.text_input('Escribe tu función despejada $g(x)$:', value='(x + 2)**(1/2)')
+            # st.caption("Ejemplo: Si tu $f(x) = x^2 - x - 2 = 0$, una forma de $g(x)$ es $(x + 2)^{1/2}$ o $(x^2 - 2)$.")
+            
+            # st.latex('g(x)'+ut.mostrar_formula(formula_g)[4:])
         
             c1, c2 = st.columns(2)
             with c1:
                 x_inicial = st.number_input('Ingresar punto de inicio $$(x_0)$$', value=1.0, step=0.5)
             with c2:
-                err_input = st.number_input('Tolerancia de error $E = 10^{-n}$', value=2, min_value=1, max_value=10)
+                err_input = st.number_input('Tolerancia de error: $ε = 10^{-n}$', value=2, min_value=1, max_value=10)
                 err = 10**(-err_input)
             
             try:

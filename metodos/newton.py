@@ -70,7 +70,7 @@ def mostrar_info():
             with c1:
                 x_n = st.number_input('Ingresar valor inicial $x_n$',value=-10.0,step=2.0)
             with c2:
-                err = st.number_input('Tolerancia de error $E = 10^{-n}$',value=2,min_value=1, max_value=10)
+                err = st.number_input('Tolerancia de error: $ε = 10^{-n}$',value=2,min_value=1, max_value=10)
                 err = 10**(-err)
         
             try:
