@@ -55,7 +55,14 @@ def biseccion(f,a,b,err):
     return x, datos
 
 def mostrar_info():
-    st.markdown("<h1 style='text-align: center;'>Método Bisección</h1>", unsafe_allow_html=True)
+    st.markdown("""
+<h1 style='text-align: center;
+background: linear-gradient(90deg, #36d1dc, #5b86e5);
+-webkit-background-clip: text;
+color: transparent;'>
+🔍 Método de Bisección
+</h1>
+""", unsafe_allow_html=True)
     
     with st.expander("📖 ¿Cómo funciona el método de Bisección?"):
             st.markdown("""
